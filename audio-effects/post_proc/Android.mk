@@ -71,9 +71,7 @@ LOCAL_HEADER_LIBRARIES := libhardware_headers \
                           libacdb_headers \
                           libarpal_headers \
                           libutils_headers \
-                          qti_audio_kernel_uapi \
-                          libaudio_extn_headers \
-                          libaudio_hal_headers
+                          qti_audio_kernel_uapi
 
 LOCAL_SHARED_LIBRARIES := \
         libcutils \
@@ -95,13 +93,17 @@ LOCAL_MODULE_OWNER := qti
 LOCAL_ADDITIONAL_DEPENDENCIES += $(TARGET_OUT_INTERMEDIATES)/KERNEL_OBJ/usr
 
 LOCAL_C_INCLUDES := \
+        vendor/qcom/opensource/audio-hal/primary-hal/hal \
         $(TARGET_OUT_INTERMEDIATES)/KERNEL_OBJ/usr/include \
+        vendor/qcom/opensource/pal \
         $(TARGET_OUT_INTERMEDIATES)/KERNEL_OBJ/usr/include/audio \
         $(TARGET_OUT_INTERMEDIATES)/KERNEL_OBJ/usr/techpack/audio/include \
-        $(call include-path-for, audio-effects)
+        $(call include-path-for, audio-effects) \
+        vendor/qcom/opensource/audio-hal/primary-hal/hal/audio_extn/
 
 ifeq ($(strip $(AUDIO_FEATURE_ENABLED_DLKM)),true)
   LOCAL_HEADER_LIBRARIES += audio_kernel_headers
+  LOCAL_C_INCLUDES += $(TARGET_OUT_INTERMEDIATES)/vendor/qcom/opensource/audio-kernel/include
 endif
 
 ifeq ($(TARGET_COMPILE_WITH_MSM_KERNEL),true)
@@ -183,9 +185,7 @@ LOCAL_CFLAGS+= -O2 -fvisibility=hidden
 LOCAL_HEADER_LIBRARIES := libhardware_headers \
                           libsystem_headers \
                           libarpal_headers \
-                          libutils_headers \
-                          libaudio_extn_headers \
-                          libaudio_hal_headers
+                          libutils_headers
 
 LOCAL_SHARED_LIBRARIES := \
         libcutils \
@@ -206,15 +206,19 @@ LOCAL_MODULE_OWNER := qti
 LOCAL_ADDITIONAL_DEPENDENCIES += $(TARGET_OUT_INTERMEDIATES)/KERNEL_OBJ/usr
 
 LOCAL_C_INCLUDES := \
+        vendor/qcom/opensource/audio-hal/primary-hal/hal \
+        vendor/qcom/opensource/pal \
         $(TARGET_OUT_INTERMEDIATES)/KERNEL_OBJ/usr/include \
         $(TARGET_OUT_INTERMEDIATES)/KERNEL_OBJ/usr/include/audio \
         $(TARGET_OUT_INTERMEDIATES)/KERNEL_OBJ/usr/techpack/audio/include \
         $(call include-path-for, audio-effects) \
         $(call include-path-for, audio-route) \
+        vendor/qcom/opensource/audio-hal/primary-hal/hal/audio_extn \
         system/media/audio_utils/include
 
 ifeq ($(strip $(AUDIO_FEATURE_ENABLED_DLKM)),true)
   LOCAL_HEADER_LIBRARIES += audio_kernel_headers
+  LOCAL_C_INCLUDES += $(TARGET_OUT_INTERMEDIATES)/vendor/qcom/opensource/audio-kernel/include
 endif
 
 ifeq ($(TARGET_COMPILE_WITH_MSM_KERNEL),true)

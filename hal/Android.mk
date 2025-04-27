@@ -2,15 +2,6 @@ LOCAL_PATH := $(call my-dir)
 
 LOCAL_AUDIO_SERVICE_64 := taro kalama anorak anorak61 crow
 
-include $(CLEAR_VARS)
-
-LOCAL_MODULE := libaudio_hal_headers
-LOCAL_EXPORT_C_INCLUDE_DIRS := $(LOCAL_PATH)/inc
-
-LOCAL_VENDOR_MODULE := true
-
-include $(BUILD_HEADER_LIBRARY)
-
 ifneq ($(TARGET_PROVIDES_AUDIO_HAL),true)
 include $(CLEAR_VARS)
 
@@ -70,10 +61,15 @@ endif
 LOCAL_CPPFLAGS += -fexceptions
 
 LOCAL_C_INCLUDES += \
-    $(LOCAL_PATH)/inc \
     system/media/audio_utils/include \
     external/expat/lib \
-    $(call include-path-for, audio-effects)
+    vendor/qcom/opensource/core-utils/fwk-detect \
+    vendor/qcom/opensource/pal \
+    $(call include-path-for, audio-effects) \
+    $(LOCAL_PATH)/audio_extn \
+    $(TOP)/vendor/qcom/opensource/agm/ipc/HwBinders/agm_ipc_client/ \
+    $(TOP)/vendor/qcom/opensource/agm/ipc/HwBinders/agm_ipc_service/inc/ \
+    $(TOP)/vendor/qcom/opensource/pal/ipc/HwBinders/pal_ipc_server/inc/
 
 LOCAL_SRC_FILES := \
     AudioStream.cpp \
@@ -83,12 +79,7 @@ LOCAL_SRC_FILES := \
     audio_extn/Gain.cpp \
     audio_extn/AudioExtn.cpp
 
-LOCAL_HEADER_LIBRARIES := \
-    libhardware_headers \
-    qti_audio_kernel_uapi \
-    libagm_headers \
-    libaudio_extn_headers \
-    libagmclient_headers
+LOCAL_HEADER_LIBRARIES := libhardware_headers qti_audio_kernel_uapi libagm_headers
 ifeq ($(QCPATH),)
 LOCAL_HEADER_LIBRARIES += \
     libagmserver_headers \

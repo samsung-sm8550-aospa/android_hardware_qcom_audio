@@ -1,14 +1,5 @@
 LOCAL_PATH := $(call my-dir)
 
-include $(CLEAR_VARS)
-
-LOCAL_MODULE := libaudio_extn_headers
-LOCAL_EXPORT_C_INCLUDE_DIRS := $(LOCAL_PATH)/inc
-
-LOCAL_VENDOR_MODULE := true
-
-include $(BUILD_HEADER_LIBRARY)
-
 #-------------------------------------------
 #            Build HFP LIB
 #-------------------------------------------
@@ -43,14 +34,15 @@ LOCAL_SHARED_LIBRARIES := \
     libar-pal
 
 LOCAL_C_INCLUDES := \
-    $(LOCAL_PATH)/inc \
+    vendor/qcom/opensource/pal \
+    vendor/qcom/opensource/audio-hal/primary-hal/hal \
+    vendor/qcom/opensource/audio-hal/primary-hal/hal/audio_extn \
     external/expat/lib \
     system/media/audio_utils/include \
     $(call include-path-for, audio-route) \
 
 LOCAL_HEADER_LIBRARIES += libhardware_headers
 LOCAL_HEADER_LIBRARIES += libsystem_headers
-LOCAL_HEADER_LIBRARIES += libaudio_hal_headers
 LOCAL_HEADER_LIBRARIES += libarpal_headers
 include $(BUILD_SHARED_LIBRARY)
 
@@ -84,14 +76,15 @@ LOCAL_SHARED_LIBRARIES := \
     libar-pal
 
 LOCAL_C_INCLUDES := \
-    $(LOCAL_PATH)/inc \
+    vendor/qcom/opensource/pal \
+    vendor/qcom/opensource/audio-hal/primary-hal/hal \
+    vendor/qcom/opensource/audio-hal/primary-hal/hal/audio_extn \
     external/expat/lib \
     system/media/audio_utils/include \
     $(call include-path-for, audio-route) \
 
 LOCAL_HEADER_LIBRARIES += libhardware_headers
 LOCAL_HEADER_LIBRARIES += libsystem_headers
-LOCAL_HEADER_LIBRARIES += libaudio_hal_headers
 LOCAL_HEADER_LIBRARIES += libarpal_headers
 include $(BUILD_SHARED_LIBRARY)
 
@@ -115,8 +108,6 @@ LOCAL_CFLAGS := \
 ifneq ($(filter $(TARGET_BOARD_PLATFORM), anorak anorak61), $(TARGET_BOARD_PLATFORM))
     LOCAL_CFLAGS += -DHEALTH_AIDL
 endif
-
-LOCAL_C_INCLUDES := $(LOCAL_PATH)/inc
 
 LOCAL_SHARED_LIBRARIES := \
     android.hardware.health@1.0 \

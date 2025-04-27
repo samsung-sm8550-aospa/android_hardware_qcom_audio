@@ -1,5 +1,6 @@
 /*
  * Copyright (c) 2019-2021, The Linux Foundation. All rights reserved.
+ * Copyright (c) 2022-2023 Qualcomm Innovation Center, Inc. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are
@@ -25,11 +26,6 @@
  * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN
  * IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- *
- * Changes from Qualcomm Innovation Center are provided under the following license:
- *
- * Copyright (c) 2022-2023 Qualcomm Innovation Center, Inc. All rights reserved.
- * SPDX-License-Identifier: BSD-3-Clause-Clear
  */
 
 #define LOG_TAG "AHAL: AudioVoice"
@@ -42,7 +38,7 @@
 #include "AudioVoice.h"
 #include "PalApi.h"
 #include "AudioCommon.h"
-#include <AudioExtn.h>
+#include <audio_extn/AudioExtn.h>
 
 #ifndef AUDIO_MODE_CALL_SCREEN
 #define AUDIO_MODE_CALL_SCREEN 4
